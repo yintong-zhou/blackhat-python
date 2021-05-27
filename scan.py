@@ -1,15 +1,15 @@
 from lxml import etree
-    from subprocess import Popen
+from subprocess import Popen
 
 import argparse
-    import os
+import os
 
 def get_ip(machine_name):
-        pass
+    pass
 
 class Scanner:
-        def __init__(self):
-            pass
+    def __init__(self):
+        pass
 
 if __name__ == '___main_':
     scan = Scanner()

@@ -10,7 +10,7 @@ def main():
     server.listen(5)
     print(f'/[*] Listening on {IP}:{PORT}')
 
-    while true:
+    while True:
         client, address = server.accept()
         print(f'/[*] Accepted connection from {address[0]}:{PORT[1]}')
         client_handle = threading.Thread(target=handle_client, args=(client,))
@@ -21,5 +21,5 @@ def handle_client(socket_socket):
         print(f'/[*] Received {request.decode("utf-8")}')
         sock.send(b"")
 
-if__name__ == '__main__':
+if __name__ == '__main__':
     main()
