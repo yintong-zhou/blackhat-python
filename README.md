@@ -1,6 +1,4 @@
 # BlackHat Python tutorial
-## Black Hat Python, 2nd Edition
-
 ## Setting up your Python environment
 
  ### Install Kali Linux
