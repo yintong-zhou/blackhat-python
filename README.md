@@ -1,4 +1,5 @@
-# Black Hat Python, 2nd Edition
+# BlackHat Python tutorial
+## Black Hat Python, 2nd Edition
 
 ## Setting up your Python environment
 
@@ -18,3 +19,4 @@
  - source venv3/bin/activate
 
  ### Install VSCode
+
