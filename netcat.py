@@ -95,7 +95,7 @@ class NetCat:
                 self.socket.send(buffer.encode())
 
         # interrupt the socket
-        except: KeyboardInterrupt:
+        except KeyboardInterrupt:
             print('User terminated.')
             self.socket.close()
             sys.exit()
