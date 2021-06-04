@@ -1,4 +1,5 @@
 import argparse
+from os import lseek
 import socket
 import shlex
 import subprocess
