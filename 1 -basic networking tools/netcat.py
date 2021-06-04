@@ -99,3 +99,56 @@ class NetCat:
             print('User terminated.')
             self.socket.close()
             sys.exit()
+
+    def listen(self):
+        self.socket.bind((self.args.target, self.args.port)) # binds to the target and port
+
+        # starts listening in a loop passing the connected socket
+        self.socket.listen(5) 
+        while True:
+            client_socket, _ = self.socket.accept()
+            client_thread = threading.Thread(
+                target=self.handle, args=(client_socket,)
+            )
+            client_thread.start()
+
+
+    def handle(self, clinet_socket):
+        # execute a command, upload a file, or start a shell. If a command should be executed
+        if self.args.execute:
+            output = execute(self.args.execute)
+            clinet_socket.send(output.encode())
+
+        # we set up a loop to listen for content on the listening socket and receive data until there’s no more data coming in
+        elif self.args.upload:
+            file_buffer = b''
+            while True:
+                data = client_socket.recv(4096)
+                if data:
+                    file_buffer += data
+                else: break
+
+            with open(self.args.upload, 'wb') as f:
+                f.write(file_buffer)
+                message = f'Saved file {self.args.upload}'
+                clinet_socket.send(message.encode())
+
+        # we set up a loop, send a prompt to the sender, and wait for a command string to come back
+        # we then execute the command by using the execute function and return the output of the command to the sender.
+        elif self.args.command:
+            cmd_buffer = b''
+            while True:
+                try:
+                    clinet_socket.send(b'BHP: #>')
+                    while '\n' not in cmd_buffer.decode():
+                        cmd_buffer += clinet_socket.recv(64)
+                    response = execute(cmd_buffer.decode())
+                    if response:
+                        clinet_socket.send(response.encode())
+                    cmd_buffer = b''
+                
+                except Exception as e:
+                    print(f'server killed {e}')
+                    self.socket.close()
+                    sys.exit()
+
