@@ -2,7 +2,7 @@ import sys
 import socket
 import threading
 
-# We create a HEXFILTER string that contains ASCII printable characters, if one exists, or a dot (.) if such a representation doesn’t exist
+# create a HEXFILTER string that contains ASCII printable characters with length 3 or dot.
 HEX_FILTER = ''.join([(len(repr(chr(i))) == 3) and chr(i) or '.' for i in range(256)])
 
 def hexdump(src, length=16, show=True):
